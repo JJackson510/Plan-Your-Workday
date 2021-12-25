@@ -1,0 +1,32 @@
+var tasks ={};
+
+
+
+var saveBtn= $('.saveBtn');
+
+$("#currentDay").text(moment().format("dddd MMMM Do YYYY"));
+
+function timeBlockColor(){
+    var hour = moment().hours();
+
+    $(".time-block").each(function(){
+        var currHour = parseInt($(this).attr("id"));
+
+        if(currHour >hour){
+            $(this).addClass("future");
+        } else if (currHour=== hour) {
+            $(this).addClass("present");
+        } else {
+            $(this).addClass("past");
+        }
+    })
+};
+
+saveBtn.on("click", function() {
+
+    var time = $(this).siblings(".hour").text();
+    var plan = $(this).siblings(".plan").val();
+    localStorage.setItem(time, plan);
+});
+
+timeBlockColor();
